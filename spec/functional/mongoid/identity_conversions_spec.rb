@@ -3,16 +3,19 @@ require "spec_helper"
 describe Mongoid::Identity do
 
   before do
-    Person.delete_all
+    Motherboard.delete_all
+    Ram.delete_all
   end
 
   context "when identity type is a String" do
 
     context "and setting id as a String" do
       before do
-        Person.delete_all
-        Person.identity(:type => String)
-        Person.create!(:id => "2")
+        Motherboard.delete_all
+        Ram.delete_all
+        Motherboard.identity(:type => String)
+        Motherboard.create!(:id => 1)
+        Ram.create!(:motherboard_id => "1")
       end
 
       #let(:person) do
@@ -20,19 +23,21 @@ describe Mongoid::Identity do
       #end
 
       it "it is still a string" do
-        Person.first.id.should == "2"
+        Ram.first.motherboard.id.should == "1"
       end
     end
 
     context "and setting id as an Integer" do
       before do
-        Person.delete_all
-        Person.identity(:type => String)
-        Person.create!(:id => 3)
+        Motherboard.delete_all
+        Ram.delete_all
+        Motherboard.identity(:type => String)
+        Motherboard.create!(:id => 1)
+        Ram.create!(:motherboard_id => 1)
       end
 
       it "it is still a string" do
-        Person.first.id.should == "3"
+        Ram.first.motherboard.id.should == "1"
       end
     end
 
@@ -42,25 +47,29 @@ describe Mongoid::Identity do
 
     context "and setting id as a String" do
       before do
-        Person.delete_all
-        Person.identity(:type => Integer)
-        Person.create!(:id => "2")
+        Motherboard.delete_all
+        Ram.delete_all
+        Motherboard.identity(:type => Integer)
+        Motherboard.create!(:id => 1)
+        Ram.create!(:motherboard_id => "1")
       end
 
       it "it is still an integer" do
-        Person.first.id.should == 2
+        Ram.first.motherboard.id.should == 1
       end
     end
 
     context "and setting id as an Integer" do
       before do
-        Person.delete_all
-        Person.identity(:type => Integer)
-        Person.create!(:id => 3)
+        Motherboard.delete_all
+        Ram.delete_all
+        Motherboard.identity(:type => Integer)
+        Motherboard.create!(:id => 1)
+        Ram.create!(:motherboard_id => 1)
       end
 
       it "gives back an integer" do
-        Person.first.id.should == 3
+        Ram.first.motherboard.id.should == 1
       end
     end
 
