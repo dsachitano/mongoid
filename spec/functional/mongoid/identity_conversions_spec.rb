@@ -20,10 +20,6 @@ describe Mongoid::Extensions::ObjectId::Conversions do
           Ram.create!(:motherboard_id => "1")
         end
 
-        #let(:person) do
-        #  Person.find.first
-        #end
-
         it "it is still a string" do
           Ram.first.motherboard.id.should == "1"
         end
