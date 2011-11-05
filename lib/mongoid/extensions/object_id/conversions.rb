@@ -31,7 +31,20 @@ module Mongoid #:nodoc:
         #
         # @since 2.0.0.rc.7
         def convert(klass, args, reject_blank = true)
-          return args if args.is_a?(BSON::ObjectId) || !klass.using_object_ids?
+          return args if args.is_a?(BSON::ObjectId)
+
+          if !klass.using_object_ids?
+            tmp_type = klass.fields["_id"].options[:type]
+            if tmp_type.eql?(::String)
+              return "#{args}" if args.is_a?(::Integer)
+            end
+            if tmp_type.eql?(::Integer)
+                return Integer(args) if args.is_a?(::String)
+            end
+
+            return args
+          end
+
           case args
           when ::String
             return nil if args.blank?
