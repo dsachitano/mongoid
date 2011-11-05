@@ -35,16 +35,15 @@ module Mongoid #:nodoc:
 
           if !klass.using_object_ids?
             tmp_type = klass.fields["_id"].options[:type]
-            if tmp_type.eql?(::String)
-              return args.to_s
-            end
+            #if tmp_type.eql?(String)
+            #  return args.to_s
+            #end
             if tmp_type.eql?(::Integer)
                 return Integer(args) if args.is_a?(::String)
             end
 
             return args
           end
-
 
           case args
           when ::String
