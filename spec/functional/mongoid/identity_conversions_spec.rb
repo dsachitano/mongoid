@@ -12,14 +12,15 @@ describe Mongoid::Identity do
       before do
         Person.delete_all
         Person.identity(:type => String)
-      end
-
-      let(:person) do
         Person.create!(:id => "2")
       end
 
+      #let(:person) do
+      #  Person.find.first
+      #end
+
       it "it is still a string" do
-        person.id.should == "2"
+        Person.first.id.should == "2"
       end
     end
 
@@ -27,14 +28,11 @@ describe Mongoid::Identity do
       before do
         Person.delete_all
         Person.identity(:type => String)
-      end
-
-      let(:person) do
         Person.create!(:id => 3)
       end
 
       it "it is still a string" do
-        person.id.should == "3"
+        Person.first.id.should == "3"
       end
     end
 
@@ -46,14 +44,11 @@ describe Mongoid::Identity do
       before do
         Person.delete_all
         Person.identity(:type => Integer)
-      end
-
-      let(:person) do
         Person.create!(:id => "2")
       end
 
       it "it is still an integer" do
-        person.id.should == 2
+        Person.first.id.should == 2
       end
     end
 
@@ -61,14 +56,11 @@ describe Mongoid::Identity do
       before do
         Person.delete_all
         Person.identity(:type => Integer)
-      end
-
-      let(:person) do
         Person.create!(:id => 3)
       end
 
-      it "gives back a string" do
-        person.id.should == 3
+      it "gives back an integer" do
+        Person.first.id.should == 3
       end
     end
 
